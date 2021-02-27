@@ -1,0 +1,23 @@
+# 관리자 권한 갖기
+sudo required
+
+# 언어 (플랫폼) 선택
+language: generic
+
+#도커 환경 구성
+services:
+  - docker
+
+#스크립트를 실행할 수 있는 환경 구성 
+before_install:
+  - echo "start Creating an image with dockerfile"
+  # 도커 이미지화
+  - docker build -t radline000/docker-react-app -f Dockerfile.dev .
+
+script:
+  # Tranvis 를 사용시 CI=true 필요 도커 실행문 
+  - docker run -e CI=true radline000/docker-react-app npm run test -- -- coverage
+
+after_success:
+  - echo "Test success"
+  
