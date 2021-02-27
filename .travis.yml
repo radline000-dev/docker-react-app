@@ -18,6 +18,19 @@ script:
   # Tranvis 를 사용시 CI=true 필요 도커 실행문 
   - docker run -e CI=true radline000/docker-react-app npm run test -- --coverage
 
-after_success:
-  - echo "Test success"
-   
+
+# 배포 설정
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "docker-react-app"
+  env: "Dockerreactapp-env"
+  bucket_name: "elasticbeanstalk-ap-northeast-2-354429491699"
+  bucket_path: "docker-react-app"
+  # 특정 브랜치에 push 일 경우 배포 진행
+  on:
+    branch: master
+
+# Travis Environment 
+access_key_id: $AWS_ACCESS_KEY
+secret_access_key: $AWS_SECRET_ACCESS_KEY
