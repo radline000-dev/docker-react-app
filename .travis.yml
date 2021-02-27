@@ -16,7 +16,7 @@ before_install:
 
 script:
   # Tranvis 를 사용시 CI=true 필요 도커 실행문 
-  - docker run -e CI=true radline000/docker-react-app npm run test -- -- coverage
+  - docker run -e CI=true radline000/docker-react-app npm run test -- --coverage
 
 after_success:
   - echo "Test success"
